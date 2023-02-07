@@ -7,8 +7,6 @@ class Customer_Data(models.Model):
     Phone_no = models.CharField(max_length=10,null=True)
     Email = models.EmailField(null=True)
     Address = models.TextField(null=True)
-    #Username = models.CharField(max_length=30)
-    #Password = models.CharField(max_length=30)
     class Meta:
         db_table = 'customer'
     def __str__(self):
@@ -31,29 +29,13 @@ class Transactions(models.Model):
     class Meta:
         db_table = 'transactions'
         
-class Money_Transfers(models.Model):             
-    Trans_ID = models.AutoField(primary_key=True)
-    From_accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE, related_name = 'From_accno')
-    To_accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE, related_name = 'To_accno')
-    Amount = models.FloatField()
-    class Meta:
-        db_table = 'transfers'
+# class Money_Transfers(models.Model):             
+#     Trans_ID = models.AutoField(primary_key=True)
+#     From_accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE, related_name = 'From_accno')
+#     To_accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE, related_name = 'To_accno')
+#     Amount = models.FloatField()
+#     class Meta:
+#         db_table = 'transfers'
     
-    
-        
-class ECS_Data(models.Model):
-    ECS_ID = models.AutoField(primary_key=True)
-    Payer_Name = models.CharField(max_length=300)
-    Upper_Limit = models.FloatField()
-    Account = models.ForeignKey(Account_Data, on_delete=models.CASCADE)
-    class Meta:
-        db_table = 'ecs'
-    
-class Bills(models.Model):
-    #id column created implicitly
-    ECS_ID = models.ForeignKey(ECS_Data, on_delete=models.CASCADE)
-    Amount = models.FloatField()
-    Completed = models.BooleanField()
-    class Meta:
-        db_table = 'bills'        
+       
     

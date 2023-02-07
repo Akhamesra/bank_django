@@ -9,16 +9,12 @@ def randomGen():
 class Account:
     def __init__(self, account_details):
         self.account_no = account_details.Accno
-        print("self.account_no:",self.account_no)
         self.account_details = account_details
-        print("self.account_details:",self.account_details)
         self.transac = {}
-        
         transaction_list = Transactions.objects.filter(Accno = account_details)
-        print("trans list: ",transaction_list)
         for trans in transaction_list:
             self.transac[trans.Trans_ID] = Transaction(trans)
-        
+
     def create_transaction(self,amt,type):
         new_trans = New_Transaction(self,date.today(),datetime.now(),amt,type)
         

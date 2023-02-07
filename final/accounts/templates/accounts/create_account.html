@@ -1,24 +1,7 @@
 {% extends 'base.html' %}
 
 {% block stylecontent %}
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Slabo+27px');
-        
-        body {
-            background-color: aliceblue;
-        }
-        h2 {
-            font-family: 'Slabo 27px';
-            border-bottom: 1px solid black;
-            font-weight: 900;
-        }
-        form ul {
-            list-style: none;
-        }
-    </style>
-
-            
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    
 {% endblock %}
 
         
@@ -29,7 +12,7 @@
     
     <form class="container" action="/accounts/register/" method="post">
         {% csrf_token %}
-        <section class="form-control">
+        <section>
             <h4>Enter basic details</h4>
             {{ form }}
         </section>
@@ -53,7 +36,7 @@
 {% endblock %}
 
 {% block scriptcontent %}
-    <script>
+    {% comment %} <script>
         $(".active").removeClass("active");
         $("#nav-create").addClass("active");
 
@@ -72,5 +55,5 @@
         // labels.addClass("col");
         // input_text.addClass("col")
         // input_pass.addClass("col");
-    </script>
+    </script> {% endcomment %}
 {% endblock %}

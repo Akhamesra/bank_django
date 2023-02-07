@@ -21,13 +21,15 @@ def sign_in(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            #return redirect("profiles:account_status")
+            if user.is_superuser:
+                return redirect("profiles:admin_view")
             return redirect("profiles:dashboard")
     else:
         form = AuthenticationForm()
         #print('invalid')
     return render(request, "accounts/sign_in.html",{"form": form})
         #return redirect("accounts:signin")
+
 
 def logout_view(request):
     # Logout the user if he hits the logout submit button

@@ -92,11 +92,7 @@
                         <font color="#3399ff">User Account</font>
                     </div>
                 </td>
-                <td>
-                    <div id="edit_details" style="float:right;">
-                        <button type="button" id="edit_button"><a href="{% url 'profiles:dashboard' %}">Home</a></button>
-                    </div>
-                </td>
+                
             </tr>
 
 
@@ -110,14 +106,6 @@
                                 <td>User Name : {{ customer.customer_data.Name }} </td>
                                 <td id="name"></td>
                             </tr>
-                            <!--
-                            <tr id="accname">
-                                <td>Phone no.: {{customer.Name}}</td>
-                                <td id="acc_name"></td>
-                            </tr>
-                            -->
-
-
                         </table>
                     </div>
                 </td>
@@ -130,12 +118,6 @@
                             <tr>
                                 <td><button id="buttons" class="button" onclick="set_function_chosen('view_accounts')">View Accounts</button></td>
                             </tr>
-                            <!-- tr>
-                                <td><button id="buttons" onclick="set_function_chosen('money_transfer')"> Money Transfer</button></td>
-                            </tr -->
-                            <tr>
-                                <td><button  id="buttons" onclick="set_function_chosen('start_ecs')">  Start ECS   </button></td>
-                            </tr>
                             <tr>
                                 <td><button  id="buttons" onclick="set_function_chosen('withdraw')">   Withdraw   </button></td>
                             </tr>
@@ -144,6 +126,9 @@
                             </tr>
                             <tr>
                                 <td><button  id="buttons" onclick="set_function_chosen('stat_gen')">  Statement Generation   </button></td>
+                            </tr>
+                            <tr>
+                                <td><button  id="buttons" onclick="set_function_chosen('show_details')">  User Details  </button></td>
                             </tr>
                         </table>
                     </div>

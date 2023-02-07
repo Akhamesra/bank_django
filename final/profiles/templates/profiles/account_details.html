@@ -61,14 +61,8 @@
                             <font color="#3399ff">Welcome {{ customer.customer_data.Name }}!</font>
                         </div>
                     </td>
-                    <td>
-                        <div id="edit_details" style="float:right;">
-                            <button type="button" id="edit_button"><a href="{% url 'profiles:dashboard' %}">Home</a></button>
-                        </div>
-                    </td>
+                    
                 </tr>
-        
-        
         
                 <tr>
                     <td>
@@ -77,10 +71,9 @@
                             <table id="details_table" cellpadding=5px;>
                                 <tr>
                                     <td>Customer Name: {{ customer.customer_data.Name }}</td>
-                                    
                                 </tr>
                                 <tr>
-                                    <td>Branch-ID: <span id="branch-id">AF600_ElectronicCity</span> </td>
+                                    <td>Customer Name: {{ customer.customer_data.Name }}</td>
                                 </tr>
                                 {% if accounts %}
                                 {% for accno, acc_obj in accounts.items %}

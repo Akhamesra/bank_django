@@ -5,7 +5,7 @@ print(os.getcwd())
 sys.path.append(os.getcwd()+'/profiles/utils')
 
 from django.shortcuts import render, redirect
-from profiles.models import Customer_Data, Account_Data,Transactions,ECS_Data,Bills
+from profiles.models import Customer_Data, Account_Data,Transactions
 import random
 from django.http import HttpResponse
 from .utils import Classes
@@ -21,6 +21,9 @@ def helper(var):
     global extra 
     extra= var
 
+def home(request):
+    return render(request,'profiles/home.html')
+    
 def user_details(request):
     if request.method == 'POST':
         phoneno = request.POST.get('phoneno')
@@ -165,8 +168,9 @@ def get_function_chosen(request):
         return redirect('profiles:deposit') #name of view given in urls.py
     elif(menu_chosen=='stat_gen'):
         return redirect('profiles:stat_gen') #name of view given in urls.py
-    elif(menu_chosen=='start_ecs'):
-        return redirect('profiles:show_ecs_options')
+    elif(menu_chosen=='show_details'):
+        return redirect('profiles:show_details') #name of view given in urls.py
+
     
 def get_account_action(request):
     print("got:", request.GET)
@@ -187,72 +191,15 @@ def get_account_action(request):
     #print("Account created successfully")
     return redirect('profiles:account_management')
 
-def show_ecs_options(request):
-    return render(request, "profiles/ecs.html")
-    
-def redirect_ecs(request):
-    ecs_option = request.GET['ecs_option']
-    print("ecs_option", ecs_option)
-    if(ecs_option == "new_ecs"):
-        return redirect('profiles:start_ecs')
-    if(ecs_option == 'view_ecs'):
-        return redirect('profiles:show_due_bills')
-        
-def start_ecs(request):
-    msg=""
-    return render(request, 'profiles/set_up_ecs.html', {"msg":msg})
-    
-def store_new_ecs_data(request):
-    #Make a class for ECS
-    payer_name = request.GET['payer_name']
-    upper_limit = request.GET['upper_limit']
-    accno = int(request.GET['accno'])
-    acc_obj = cur_customer.accounts[accno]
-    ecs_obj = Classes.New_ECS(payer_name, acc_obj, upper_limit)
-    msg = "New ECS Created Successfully!"
-    return render(request, 'profiles/set_up_ecs.html', {"msg":msg})
-    
-def show_due_bills(request):
-    accounts = cur_customer.accounts
-    bills_list = []
-    for acc_obj in accounts.values():
-        ecs_list = ECS_Data.objects.filter(Account = acc_obj.account_details)
-        for ecs in ecs_list:
-            bills_for_cur_ecs = Bills.objects.filter(ECS_ID = ecs).filter(Completed = False)
-            for bill in bills_for_cur_ecs:
-                bill_details = [bill.id, ecs.Payer_Name, acc_obj.account_no, bill.Amount, ecs.Upper_Limit]
-                if(bill.Amount<=ecs.Upper_Limit):
-                    bill_details.append("yes")
-                else:
-                    bill_details.append("NO")
-                #bills_list.extend(list(bills_for_cur_ecs))
-                bills_list.append(bill_details)
-    print(bills_list)
-    return render(request, 'profiles/ecs_show_bills.html', {'bills_list':bills_list});
-    
-def pay_bill(request):
-    bill_id = request.GET['bill_id']
-    print("bill_id", bill_id)
-    bill_obj = Bills.objects.get(id=bill_id);
-    bill_obj.Completed = True
-    bill_obj.save()
-    return redirect('profiles:show_due_bills')
-           
-'''    
-def test_classes(request):
-    print("got to test classes")
-    login_obj = Classes.Login_Details('anj', 'anj123')
-    cust_obj = Classes.Customer(login_obj)
-    acc_obj = Classes.Account(1111)
-    new_acc_obj = Classes.New_Account(111, cust_obj)
-    new_cust_obj = Classes.New_Customer(login_obj, 'anjali', 'addr1', '99880')
-'''    
-    
-
-        
-def printer(request):
+def admin_view(request):
     data = Account_Data.objects.all()
-    context={
+    context ={
         'data' : data,
     }
-    return render(request, "test.html", context)  
+    return render(request, "profiles/admin.html", context)
+
+
+def show_details(request):
+    #accounts = cur_customer.accounts
+    return render(request, 'profiles/show_details.html', 
+    {'customer':cur_customer})
