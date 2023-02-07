@@ -25,25 +25,20 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    {% if request.user.is_anonymous %}
+                {% if request.user.is_anonymous %}
                   <a class="nav-link" href="{% url 'accounts:signup' %}">Create new account <span class="sr-only">(current)</span></a>
-                  {%endif%}
                 </li>
+                {% else %}
                 <li class="nav-item">
-                    {% if request.user.is_anonymous%}
                     <a class="nav-link" href="{% url 'accounts:signin' %}">SignIn</a>
-                    {%endif%}
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
                 </li>
                 <li class="nav-item">
-                    {% if not request.user.is_anonymous %}
                         <a class="nav-link" href="{% url 'profiles:dashboard' %}">Home</a>
-                    {%endif%}
-                    
                 </li>
-                
+                {%endif%}
                 
               </ul>
             </div>
