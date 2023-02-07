@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block bodycontent %}
+
+<table id="details_table" cellpadding=5px;>
+    <tr>
+        <td>Customer Name: {{ customer.customer_data.Name }}</td>
+    </tr>
+    <tr>
+        <td>Customer Phone No: {{ customer.customer_data.Phone_no }}</td>
+    </tr>
+    <tr>
+        <td>Customer Email: {{ customer.customer_data.Email }}</td>
+    </tr>
+    <tr>
+        <td>Customer Address: {{ customer.customer_data.Address }}</td>
+    </tr>
+   
+    
+    
+</table>
+{% endblock bodycontent %}

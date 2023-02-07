@@ -21,7 +21,8 @@ def sign_in(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            #return redirect("profiles:account_status")
+            if user.is_superuser:
+                return redirect("profiles:admin_view")
             return redirect("profiles:dashboard")
     else:
         form = AuthenticationForm()

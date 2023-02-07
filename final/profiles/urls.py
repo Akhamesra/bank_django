@@ -11,6 +11,7 @@ urlpatterns = [
     #url(r"^test/$", views.test_classes, name = "test_class"),
     path('home',views.home,name='home'),
     path('user_details',views.user_details,name = 'user_details'),
+    path('show_details',views.show_details,name = 'show_details'),
     path(r"dashboard", views.display_menu, name = "dashboard"),
     path(r"redirect_from_dashboard", views.get_function_chosen, name = "get_function_chosen"),
     path(r"account_management", views.account_management, name='account_management'),
@@ -19,12 +20,6 @@ urlpatterns = [
     path(r"deposit", views.deposit, name='deposit'),
     path(r"stat_gen", views.stat_gen, name='stat_gen'),
     path(r"get_stat_gen", views.get_transaction_action, name='get_transaction_action'),
-    path(r"show_ecs_options", views.show_ecs_options, name='show_ecs_options'),
-    path(r"redirect_ecs", views.redirect_ecs, name='redirect_ecs'),
-    path(r"start_ecs", views.start_ecs, name='start_ecs'),
-    path(r"store_new_ecs_data", views.store_new_ecs_data, name='store_new_ecs_data'),
-    path(r"show_due_bills", views.show_due_bills, name='show_due_bills'),
-    path(r"pay_bill", views.pay_bill, name='pay_bill'),
-    path(r'test', views.printer, name="tester"),
+    path(r'admin_view', views.admin_view, name="admin_view"),
 ]
 

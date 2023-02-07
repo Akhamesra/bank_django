@@ -28,16 +28,19 @@
                 {% if request.user.is_anonymous %}
                   <a class="nav-link" href="{% url 'accounts:signup' %}">Create new account <span class="sr-only">(current)</span></a>
                 </li>
-                {% else %}
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:signin' %}">SignIn</a>
                 </li>
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
                 </li>
+                {%if not request.user.is_superuser%}
                 <li class="nav-item">
                         <a class="nav-link" href="{% url 'profiles:dashboard' %}">Home</a>
                 </li>
+                {%endif%}
                 {%endif%}
                 
               </ul>
