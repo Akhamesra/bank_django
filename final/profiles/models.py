@@ -4,9 +4,9 @@ from django.db import models
 class Customer_Data(models.Model):
     Cust_ID = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=200)
-    Phone_no = models.CharField(max_length=10)
-    Email = models.EmailField()
-    Address = models.TextField()
+    Phone_no = models.CharField(max_length=10,null=True)
+    Email = models.EmailField(null=True)
+    Address = models.TextField(null=True)
     #Username = models.CharField(max_length=30)
     #Password = models.CharField(max_length=30)
     class Meta:

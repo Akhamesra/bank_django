@@ -17,50 +17,41 @@ def randomGen():
     # return a 6 digit random number
     return int(random.uniform(100000, 999999))
 
+def helper(var):
+    global extra 
+    extra= var
+
 def user_details(request):
+    if request.method == 'POST':
+        phoneno = request.POST.get('phoneno')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        customer = Classes.New_Customer(extra, extra.username, phoneno,email,address)
+        return redirect('profiles:dashboard')
+    return render(request, 'profiles/user_details.html') 
+
+def display_menu(request):
     global cur_customer
     user_log_in = Classes.Login_Details(request.user.username, request.user.password)
     #Check if customer is a new or existing customer
     cust_details = Customer_Data.objects.filter(Name = user_log_in.username)
     print("cust_details", cust_details)
     if(cust_details):
-        print("Existing Customer")
-        customer = Classes.Customer(user_log_in)
-        cur_customer = customer
-        print("customer obj", customer)
-        return redirect('profiles:dashboard')
+       print("Existing Customer")
+       customer = Classes.Customer(user_log_in)
+       print("customer obj", customer)
     else:
-        if request.method == 'POST':
-            phoneno = request.POST.get('phoneno')
-            email = request.POST.get('email')
-            address = request.POST.get('address')
-            
-            print("Making New Customer")
-            customer = Classes.New_Customer(user_log_in, user_log_in.username, phoneno,email,address)
-            cur_customer = customer
-            print("Customer name:", customer.customer_data.Name)
-            return redirect('profiles:dashboard')
-        return render(request, 'profiles/user_details.html')
-         
-
-def display_menu(request):
-    # global cur_customer
-    # user_log_in = Classes.Login_Details(request.user.username, request.user.password)
-    # #Check if customer is a new or existing customer
-    # cust_details = Customer_Data.objects.filter(Name = user_log_in.username)
-    # print("cust_details", cust_details)
-    # if(cust_details):
-    #    print("Existing Customer")
-    #    customer = Classes.Customer(user_log_in)
-    #    print("customer obj", customer)
-    # else:
-    #     print("Making New Customer")
-    #     customer = Classes.New_Customer(user_log_in, user_log_in.username, '9999999999', 'saa@gmail.com')
-    # print("Customer name:", customer.customer_data.Name)
-    customer = cur_customer 
+        print("Making New Customer")
+        helper(user_log_in)
+        return redirect('profiles:user_details')
+        # customer = Classes.New_Customer(user_log_in, user_log_in.username, '9999999999', 'saa@gmail.com')
+    print("Customer name:", customer.customer_data.Name)
+    cur_customer = customer
     return render(request, 'profiles/user_account.html', 
     {'customer':customer})
-  
+
+     
+
 def account_management(request):
     accounts = cur_customer.accounts
     user_accnos = list(accounts.keys())

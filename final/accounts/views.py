@@ -22,7 +22,7 @@ def sign_in(request):
             user = form.get_user()
             login(request, user)
             #return redirect("profiles:account_status")
-            return redirect("profiles:user_details")
+            return redirect("profiles:dashboard")
     else:
         form = AuthenticationForm()
         #print('invalid')
