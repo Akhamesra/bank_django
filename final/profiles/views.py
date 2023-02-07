@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from profiles.models import Customer_Data, Account_Data,Transactions,ECS_Data,Bills
 import random
 from django.http import HttpResponse
-import Classes
+from .utils import Classes
 
 cur_customer = None #Stores customer obj
 
@@ -17,21 +17,47 @@ def randomGen():
     # return a 6 digit random number
     return int(random.uniform(100000, 999999))
 
-def display_menu(request):
+def user_details(request):
     global cur_customer
     user_log_in = Classes.Login_Details(request.user.username, request.user.password)
     #Check if customer is a new or existing customer
     cust_details = Customer_Data.objects.filter(Name = user_log_in.username)
     print("cust_details", cust_details)
     if(cust_details):
-       print("Existing Customer")
-       customer = Classes.Customer(user_log_in)
-       print("customer obj", customer)
+        print("Existing Customer")
+        customer = Classes.Customer(user_log_in)
+        cur_customer = customer
+        print("customer obj", customer)
+        return redirect('profiles:dashboard')
     else:
-        print("Making New Customer")
-        customer = Classes.New_Customer(user_log_in, user_log_in.username, '9999999999', 'saa@gmail.com')
-    print("Customer name:", customer.customer_data.Name)
-    cur_customer = customer
+        if request.method == 'POST':
+            phoneno = request.POST.get('phoneno')
+            email = request.POST.get('email')
+            address = request.POST.get('address')
+            
+            print("Making New Customer")
+            customer = Classes.New_Customer(user_log_in, user_log_in.username, phoneno,email,address)
+            cur_customer = customer
+            print("Customer name:", customer.customer_data.Name)
+            return redirect('profiles:dashboard')
+        return render(request, 'profiles/user_details.html')
+         
+
+def display_menu(request):
+    # global cur_customer
+    # user_log_in = Classes.Login_Details(request.user.username, request.user.password)
+    # #Check if customer is a new or existing customer
+    # cust_details = Customer_Data.objects.filter(Name = user_log_in.username)
+    # print("cust_details", cust_details)
+    # if(cust_details):
+    #    print("Existing Customer")
+    #    customer = Classes.Customer(user_log_in)
+    #    print("customer obj", customer)
+    # else:
+    #     print("Making New Customer")
+    #     customer = Classes.New_Customer(user_log_in, user_log_in.username, '9999999999', 'saa@gmail.com')
+    # print("Customer name:", customer.customer_data.Name)
+    customer = cur_customer 
     return render(request, 'profiles/user_account.html', 
     {'customer':customer})
   

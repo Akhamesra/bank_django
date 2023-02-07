@@ -87,12 +87,13 @@ class Customer:
             
         
 class New_Customer(Customer):
-    def __init__(self, log_in_obj, name, phone_no, email):
+    def __init__(self, log_in_obj, name, phone_no, email,address):
         #Insert details to DB
         cust_user=Customer_Data()
         cust_user.Name = name
         cust_user.Phone_no = phone_no
         cust_user.Email = email
+        cust_user.Address = address
         cust_user.save()
         super().__init__(log_in_obj)
         #self.accounts = {}
