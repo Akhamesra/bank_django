@@ -9,6 +9,7 @@ urlpatterns = [
     #url(r"^login/$", views.sign_in, name = "signin"),
     #url(r"^logout/$", views.logout_view, name = "logout"),
     #url(r"^test/$", views.test_classes, name = "test_class"),
+    path('home',views.home,name='home'),
     path('user_details',views.user_details,name = 'user_details'),
     path(r"dashboard", views.display_menu, name = "dashboard"),
     path(r"redirect_from_dashboard", views.get_function_chosen, name = "get_function_chosen"),

@@ -26,6 +26,7 @@
                 <div class="navbar-nav">
                     <a class="nav-item nav-link" href="{% url 'accounts:signup' %}" id="nav-create">Create new account</a>
                     <a class="nav-item nav-link" href="{% url 'accounts:signin' %}" id="nav-login">SignIn</a>
+                    {% if %}
                     <a class="nav-item nav-link" href="{% url 'accounts:signin' %}" id="nav-login">Logout</a>
                 </div>
             </div>

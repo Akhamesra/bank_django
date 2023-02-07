@@ -29,6 +29,7 @@ def sign_in(request):
     return render(request, "accounts/sign_in.html",{"form": form})
         #return redirect("accounts:signin")
 
+
 def logout_view(request):
     # Logout the user if he hits the logout submit button
     logout(request)

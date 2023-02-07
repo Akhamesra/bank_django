@@ -21,6 +21,9 @@ def helper(var):
     global extra 
     extra= var
 
+def home(request):
+    return render(request,'profiles/home.html')
+    
 def user_details(request):
     if request.method == 'POST':
         phoneno = request.POST.get('phoneno')
