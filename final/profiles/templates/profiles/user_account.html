@@ -79,12 +79,17 @@
         margin: 2px 1px;
         cursor: pointer;
     }
+
+    .center {
+        margin-left: auto;
+        margin-right: auto;
+      }
     </style>
 
     {%endblock%}
     
     {% block bodycontent %}
-        <table width=70% height=60%>
+        <table class="center" width=70% height=60%>
             <tr>
                 <td>
 
@@ -99,17 +104,6 @@
 
             <tr>
                 <td>
-                    <div id="details_box" align="center">
-                        <h4>User Details: </h4>
-                        <table id="details_table" cellpadding=5px;>
-                            <tr>
-                                <td>User Name : {{ customer.customer_data.Name }} </td>
-                                <td id="name"></td>
-                            </tr>
-                        </table>
-                    </div>
-                </td>
-                <td>
                 <form name="dashboard" action="redirect_from_dashboard">
                     <input type="hidden" name="function_chosen" id="function_chosen">
                     <div id="buttons_box">
@@ -123,6 +117,9 @@
                             </tr>
                             <tr>
                                 <td><button  id="buttons" onclick="set_function_chosen('deposit')">   Deposit    </button></td>
+                            </tr>
+                            <tr>
+                                <td><button  id="buttons" onclick="set_function_chosen('transfer')">  Transfer  </button></td>
                             </tr>
                             <tr>
                                 <td><button  id="buttons" onclick="set_function_chosen('stat_gen')">  Statement Generation   </button></td>

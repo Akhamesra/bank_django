@@ -53,7 +53,7 @@
         {% if user.is_authenticated %}
          <form name="acc_management" id="acc_management" action="process_account_action"> 
             <input type="hidden" name="account_action" id="account_action">  
-            <table width=70% height=60%>
+            <table class=table width=70% height=60%>
                 <tr>
                     <td>
         
@@ -68,10 +68,7 @@
                     <td>
                         <div id="details_box" align="center">
                             <h4>Account Details :</h4>
-                            <table id="details_table" cellpadding=5px;>
-                                <tr>
-                                    <td>Customer Name: {{ customer.customer_data.Name }}</td>
-                                </tr>
+                            <table class=table id="details_table" cellpadding=5px;>
                                 <tr>
                                     <td>Customer Name: {{ customer.customer_data.Name }}</td>
                                 </tr>

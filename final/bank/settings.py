@@ -37,10 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework_swagger',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'drf_yasg',
+    # 'rest_framework_swagger',
+    # 'rest_framework',
+    # 'rest_framework.authtoken',
+    # 'drf_yasg',
     #own apps
     'accounts',
     'profiles',
@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'bank.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Bank_didi',
+        'NAME': 'bank_didi',
         'USER':'postgres',
         'PASSWORD':'Finserv@2023',
         'HOST':'localhost',

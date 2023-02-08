@@ -54,7 +54,7 @@
         {% if user.is_authenticated %}
          <form name="stat_gen" action="get_stat_gen"> 
             <input type="hidden" name="account_action" id="account_action">
-            <table width=70% height=60%>
+            <table class=table width=70% height=60%>
                 <tr>
                     <td>
                     <div id="page_name" style="float:left;">
@@ -67,7 +67,7 @@
                     <td>
                         <div id="details_box" align="center">
                             <h4>Transaction Details :</h4>
-                            <table id="trans_details_table" cellpadding=5px; width="100%">
+                            <table class=table id="trans_details_table" cellpadding=5px; width="100%">
                                 <tr>
                                     <td>Trans_ID</td>
                                     <td>Acc_No</td>
@@ -86,7 +86,7 @@
                                                 </tr>
                                             {% endfor %}
                                         {% else %}
-                                            {% for trans_obj in trans_obj_list%}
+                                            {% for trans_obj in trans_obj_list %}
                                                 <tr>
                                                     <td>{{trans_obj.Trans_ID}}</td>
                                                     <td>{{ accno }}</td>

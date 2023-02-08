@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block bodycontent %}
-    <table>
-        <tr>
-            <th>account_num</th>
-            <th>name</th>
-            <th>Phone No</th>
-            <th>balance</th>
-        </tr>
+    <table class=table>
+        <thead>
+            <tr>
+                <th>account_num</th>
+                <th>name</th>
+                <th>Phone No</th>
+                <th>balance</th>
+            </tr>
+        </thead>
         {% for account in data  %}
             <tr>
                 <td>{{account.Accno}}</td>
