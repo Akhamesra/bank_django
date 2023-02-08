@@ -13,25 +13,39 @@
 {% block bodycontent%}
         
     <div class="container"> 
-        <form  action="/accounts/login/" method="post">
+        <div class="row">
+        <div class="formContainer col-12 col-md-6 my-auto" >
+        <h2>Enter login details</h2>
+        <form  action="/accounts/login/" method="post" style = "border: 2px solid #000; border-radius: 12px;" class="mt-4 shadow pb-4">
             {% csrf_token %}
-            <h2>Enter login details</h2>
+    
 
-            {{ form }}
+            <div class="p-5">
 
-            <br>
+            {% for f in form %}  
+            <div class="m-3">
+            {{ f.label }} : {{f}}
+            </div>
+            {% endfor %}
 
-            <button type="submit" class="btn btn-danger">
+            </div>
+
+            <button type="submit" class="btn btn-success ml-5 mb-3">
                 Login
             </button>
-
-            <br> <br>
-
+{% comment %} 
             <small class="row">
                 <a href="{% url 'accounts:signup' %}" class="col text-right">Create New Account</a>
-            </small>
+            </small> {% endcomment %}
         </form>
     </div>
+    <div class="lottie-container col-12 col-md-6">
+<lottie-player src="https://assets8.lottiefiles.com/packages/lf20_KvK0ZJBQzu.json"  background="transparent"  speed="1"  style="width: auto; height: auto;"  autoplay loop ></lottie-player>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    </div>
+</div>
+</div>
         
 {% endblock %}
 

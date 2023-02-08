@@ -14,7 +14,7 @@
         {% csrf_token %}
         <section>
             <h4>Enter basic details</h4>
-            {{ form }}
+            {{ form.as_p }}
         </section>
         <br>
         <br>

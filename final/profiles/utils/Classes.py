@@ -5,7 +5,7 @@ from datetime import date,datetime
 def randomGen():
     # return a 6 digit random number
     return int(random.uniform(100000, 999999))
-  
+
 class Account:
     def __init__(self, account_details):
         self.account_no = account_details.Accno
@@ -86,7 +86,7 @@ class New_Customer(Customer):
     def __init__(self, name, phone_no, email,address):
         #Insert details to DB
         cust_user=Customer_Data()
-        cust_user.Name = name
+        cust_user.userName = name
         cust_user.Phone_no = phone_no
         cust_user.Email = email
         cust_user.Address = address

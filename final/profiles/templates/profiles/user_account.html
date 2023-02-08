@@ -1,144 +1,224 @@
 <body>
-    {% extends 'base.html' %}
-    {% load static %}
-    
-    {% block stylecontent %}
-    <style>
-        body {
-            background-color: aliceblue;
-        }
-        h2 {
-            font-family: 'Slabo 27px';
-            border-bottom: 1px solid black;
-            font-weight: 900;
-        }
-        #page_name {
-            font-size: 25;
-        }
-        
-        #details_box {
-            font-size: 23;
-            top: 50px;
-            left: 30px;
-        }
-        
-        #details_table {
-            font-size: 20;
-            position: relative;
-            align-items: center;
-        }
-        
+  {% extends 'base.html' %} {% load static %} {% block stylecontent %}
+  <style>
+    body {
+      background-color: aliceblue;
+    }
+    {% comment %} h2 {
+      font-family: "Slabo 27px";
+      border-bottom: 1px solid black;
+      font-weight: 900;
+    }
+    #page_name {
+      font-size: 25;
+    }
+
+    #details_box {
+      font-size: 23;
+      top: 50px;
+      left: 30px;
+    }
+
+    #details_table {
+      font-size: 20;
+      position: relative;
+      align-items: center;
+    }
+
     #buttons_table {
-        font-size: 25;
-        border: 1px solid black;
-        border-radius: 10px;
-        align-items: center;
+      font-size: 25;
+      border: 1px solid black;
+      border-radius: 10px;
+      align-items: center;
     }
 
     #buttons_box {
-        margin-left: 40;
-        padding-left: 20%;
-        padding-top: 10%;
-        padding-bottom: 10%;
-        position: relative;
+      margin-left: 40;
+      padding-left: 20%;
+      padding-top: 10%;
+      padding-bottom: 10%;
+      position: relative;
+    } {% endcomment %}
+
+    {% comment %} #buttons {
+      border: none;
+      color: black;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      
+      height: 40px;
+      width: 250px;
     }
 
-    #buttons {
-        border: none;
-        color: black;
-        padding: 15px 32px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        background-color: #33adff;
-        height: 40px;
-        width: 250px;
+     #buttons:hover {
+      background-color: #d0d0d0;
+    } {% endcomment %}
+
+    {% comment %} #edit_details {
+      top: 10px;
+      left: 20px;
     }
 
-    #buttons:hover {
-        background-color: #D0D0D0;
-    }
-
-        
-    #edit_details {
-        top: 10px;
-        left: 20px;
-    }
-       
     #edit_button {
-        border: none;
-        color: black;
-        padding: 5px 7px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 14px;
-        margin: 2px 1px;
-        cursor: pointer;
+      border: none;
+      color: black;
+      padding: 5px 7px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+      margin: 2px 1px;
+      cursor: pointer;
     }
 
     .center {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    </style>
+      margin-left: auto;
+      margin-right: auto;
+    }  {% endcomment %}
+ button {
+    width: 16vw !important;
+    font-size: 1.2rem !important;
+ }
+  </style>
 
-    {%endblock%}
-    
-    {% block bodycontent %}
-        <table class="center" width=70% height=60%>
-            <tr>
+  {%endblock%} {% block bodycontent %}
+ <div class="container">
+        {% comment %} <div id="page_name" style="float: left">
+          <font color="#3399ff">User Account</font>
+        </div> {% endcomment %}
+ <h1>User Accounts</h1>
+      <div class="row">
+
+      <div class="col-12 col-md-6 my-auto">
+        <form name="dashboard" action="redirect_from_dashboard" class="my-auto">
+          <input type="hidden" name="function_chosen" id="function_chosen" />
+          <div id="buttons_box">
+            {% comment %} <table id="buttons_table" cellpadding="5px;" class="">
+              <tr>
                 <td>
-
-                    <div id="page_name" style="float:left;">
-                        <font color="#3399ff">User Account</font>
-                    </div>
+                  <button
+                    id="buttons"
+                    class="button"
+                    onclick="set_function_chosen('view_accounts')"
+                  >
+                    View Accounts
+                  </button>
                 </td>
-                
-            </tr>
-
-
-
-            <tr>
+              </tr>
+              <tr>
                 <td>
-                <form name="dashboard" action="redirect_from_dashboard">
-                    <input type="hidden" name="function_chosen" id="function_chosen">
-                    <div id="buttons_box">
-                        <table id="buttons_table" cellpadding=5px;>
-
-                            <tr>
-                                <td><button id="buttons" class="button" onclick="set_function_chosen('view_accounts')">View Accounts</button></td>
-                            </tr>
-                            <tr>
-                                <td><button  id="buttons" onclick="set_function_chosen('withdraw')">   Withdraw   </button></td>
-                            </tr>
-                            <tr>
-                                <td><button  id="buttons" onclick="set_function_chosen('deposit')">   Deposit    </button></td>
-                            </tr>
-                            <tr>
-                                <td><button  id="buttons" onclick="set_function_chosen('transfer')">  Transfer  </button></td>
-                            </tr>
-                            <tr>
-                                <td><button  id="buttons" onclick="set_function_chosen('stat_gen')">  Statement Generation   </button></td>
-                            </tr>
-                            <tr>
-                                <td><button  id="buttons" onclick="set_function_chosen('show_details')">  User Details  </button></td>
-                            </tr>
-                        </table>
-                    </div>
-                </form>
+                  <button
+                    id="buttons"
+                    onclick="set_function_chosen('withdraw')"
+                  >
+                    Withdraw
+                  </button>
                 </td>
-            </tr>
-        </table>
-        
-        <script>
-        function set_function_chosen(menu_name){
-            hidden_field = document.getElementById("function_chosen");
-            hidden_field.setAttribute("value", menu_name);
-        }
-        </script>
-    {% endblock%}
+              </tr>
+              <tr>
+                <td>
+                  <button id="buttons" onclick="set_function_chosen('deposit')">
+                    Deposit
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button
+                    id="buttons"
+                    onclick="set_function_chosen('transfer')"
+                  >
+                    Transfer
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button
+                    id="buttons"
+                    onclick="set_function_chosen('stat_gen')"
+                  >
+                    Statement Generation
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <button
+                    id="buttons"
+                    onclick="set_function_chosen('show_details')"
+                  >
+                    User Details
+                  </button>
+                </td>
+              </tr>
+            </table> {% endcomment %}
+            <div class="row p-5">
+                <div class="col-12 m-2">
+                    <button
+                    class="btn btn-outline-success p-2"
+                    onclick="set_function_chosen('view_accounts')"
+                  >
+                    View Accounts
+                  </button>
+                </div>
+                <div class="col-12 m-2">
+                    <button
+                    class="btn btn-outline-success p-2"
+                    onclick="set_function_chosen('withdraw')"
+                  >
+                    Withdraw
+                  </button>
+                </div>
+                <div class="col-12 m-2">
+                    <button onclick="set_function_chosen('deposit')" class="btn btn-outline-success p-2">
+                        Deposit
+                      </button>
+                </div>
+                <div class="col-12 m-2">
+                    <button
+                    onclick="set_function_chosen('transfer')"
+                    class="btn btn-outline-success p-2"
+                  >
+                    Transfer
+                  </button>
+                </div>
+                <div class="col-12 m-2">
+                    <button
+                    onclick="set_function_chosen('stat_gen')"
+                    class="btn btn-outline-success p-2"
+                  >
+                    Statement Generation
+                  </button>
+                </div>
+                <div class="col-12 m-2">
+                    <button
+                    onclick="set_function_chosen('show_details')"
+                    class="btn btn-outline-success p-2"
+                  >
+                    User Details
+                  </button>
+                </div>
+            </div>
+          </div>
+        </form>
+    </div>
+    <div class="col-12 col-md-6">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_912zyc1q.json"  background="transparent"  speed="1"  style="width: auto; height: auto"  loop  autoplay></lottie-player>
+      </div>
+</div>
+</div>
+  <script>
+    function set_function_chosen(menu_name) {
+      hidden_field = document.getElementById("function_chosen");
+      hidden_field.setAttribute("value", menu_name);
+    }
+  </script>
+  {% endblock%}
 </body>
