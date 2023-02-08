@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 
 {% block bodycontent %}
-
-<table class=table id="details_table" cellpadding=5px;>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 my-auto">
+    <h1 class="mb-5">User Details</h1>
+<table class="table table-striped shadow" id="details_table" cellpadding=5px;>
     <tr>
         <td>Customer Name: {{ customer.customer_data.Name }}</td>
     </tr>
@@ -14,9 +17,12 @@
     </tr>
     <tr>
         <td>Customer Address: {{ customer.customer_data.Address }}</td>
-    </tr>
-   
-    
-    
+    </tr>  
 </table>
+</div>
+<div class="col-12 col-md-6">
+ <img src="https://img.freepik.com/free-vector/employees-cv-candidates-resume-corporate-workers-students-id-isolate-flat-design-element-job-applications-avatars-personal-information_335657-2605.jpg?w=2000" class="img-fluid">
+</div>
+</div>
+</div>
 {% endblock bodycontent %}

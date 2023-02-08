@@ -4,80 +4,53 @@
     
     {% block stylecontent %}
     <style>
-        body {
-            background-color: aliceblue;
-        }
-        h2 {
-            font-family: 'Slabo 27px';
-            border-bottom: 1px solid black;
-            font-weight: 900;
-        }
+     
         #page_name {
             font-size: 25;
         }
         
         #details_box {
             font-size: 23;
-            top: 50px;
-            left: 30px;
+   
         }
         
         #details_table {
             font-size: 20;
-            position: relative;
+            padding: 20px;
             align-items: center;
         }
-        
-        #edit_details {
-            top: 10px;
-            left: 20px;
+        form{
+            border: 2px solid #000;
+            border-radius: 12px;
+            padding: 3rem;
         }
-        
-        #edit_button {
-            border: none;
-            color: black;
-            padding: 5px 7px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 2px 1px;
-            cursor: pointer;
-        }
+
     </style>
 
     {%endblock%}
     
     {% block bodycontent %}
-    <table width=70% height=60%>
-        <tr>
-            <td>
-                <div id="page_name" style="float:left;">
-                    <font color="#3399ff">Tranfer</font>
-                </div>
-            </td>
-            
-            
-        </tr>
-        <tr>
-            <td></td>
+ 
+<div class="container">
+<h1 color="#3399ff">Transfer</h1>
+<br>
 
-            <td>
+    <div class="row">
 
-                <div id="details_box">
-                    <form method="POST">
-                        <table id="details_table" cellpadding=5px;>
+                <div class="col-12 col-md-6 my-auto">
+                    <form method="POST" class="shadow">
+                        <table id="details_table" cellpadding="10px">
                             {% csrf_token %}
                             <tr>
-                                <td>Amount to be transfered :</td>
-                                <td><input type="text" name="amount" placeholder="Amount"></td>
+                                <td>Amount to be transfered : 
+                                    <br>
+                                    <br>
+                                    <input type="text" name="amount" placeholder="Amount"></td>
                             </tr>
 
                             <tr>
-                                <td> From account :</td>
-                                {% comment %} <td><input type="text" name="from_acc" placeholder="Account number"></td> {% endcomment %}
                                 <td>
-                                    <label for="from_ac">Choose an account:</label>
+                                    <label for="from_ac">Choose an account: </label>
                                     <select name="from_acc">
                                         <option value="none" selected disabled hidden>accounts</option>
                                         {% for account in accounts %}
@@ -88,14 +61,11 @@
                             </tr>
 
                             <tr>
-                                <td> To account :</td>
-                                <td><input type="text" name="to_acc" placeholder="Account number"></td>
+                                <td> To account : <input type="text" name="to_acc" placeholder="Account number"></td>
                             </tr>
 
                             <tr>
-                                <td></td>
-                                <!--<td><input type="button" value="Withdraw"></td>-->
-                                <td><button>transfer</button></td>
+                                <td><button class="btn btn-outline-success">transfer</button></td>
                             </tr>
                             <tr>
                                 <td><span>{{msg|safe}}</span></td>
@@ -107,8 +77,11 @@
                     </form>
 
                 </div>
-            </td>
-        </tr>
-    </table>
+                <div class="col-12 col-md-6">
+                    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<lottie-player src="https://assets3.lottiefiles.com/packages/lf20_XHSU3xc4i9.json"  background="transparent"  speed="1"  style="width: auto; height: auto;"  loop  autoplay></lottie-player>
+                </div>
+            </div>
+        </div>
     {% endblock%}
 </body>

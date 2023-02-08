@@ -6,68 +6,55 @@
     
     {% block stylecontent %}
     <style>
-        body {
-            background-color: aliceblue;
-        }
-        h2 {
-            font-family: 'Slabo 27px';
-            border-bottom: 1px solid black;
-            font-weight: 900;
-        }
+
         #page_name {
             font-size: 25;
         }
         
         #details_box {
             font-size: 23;
-            top: 50px;
-            left: 30px;
+
         }
         
         #details_table {
             font-size: 20;
-            position: relative;
+
             align-items: center;
         }
         
-        #edit_details {
-            top: 10px;
-            left: 20px;
-        }
+
         
-        #edit_button {
-            border: none;
-            color: black;
-            padding: 5px 7px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            margin: 2px 1px;
-            cursor: pointer;
-        }
+
     </style>
     {%endblock%}
     
     {% block bodycontent %}
         {% csrf_token %}
         {% if user.is_authenticated %}
+        <div class="container">
+                <h1> Welcome {{ customer.customer_data.Name }}!</h1>
+
          <form name="stat_gen" action="get_stat_gen"> 
             <input type="hidden" name="account_action" id="account_action">
-            <table width=70% height=60%>
-                <tr>
-                    <td>
-                    <div id="page_name" style="float:left;">
-                        <font color="#3399ff">Welcome {{ customer.customer_data.Name }}!</font>
-                    </div>
-                    </td>
-                    
-                </tr>
+            <tr>
+                <td>
+                    <p>Which type of transactional acitivity you want to see?</p><br>
+                </td>
+                <td>
+                      <div class="btn-group">
+                    <button onclick="set_account_action('all')" class="btn btn-outline-success"> All </button>    
+                    <button onclick="set_account_action('withdraw')" class="btn btn-outline-success"> Withdraw </button>   
+                    <button onclick="set_account_action('deposit')" class="btn btn-outline-success"> Deposit </button>    
+                      </div>
+                </td>
+            </tr>
+            <table class="w-100">
+    
                 <tr>
                     <td>
                         <div id="details_box" align="center">
-                            <h4>Transaction Details :</h4>
-                            <table class=table id="trans_details_table" cellpadding=5px; width="100%">
+                            <h4 class="m-3">Transaction Details :</h4>
+                            <table class="table table-striped shadow" id="trans_details_table" cellpadding=5px; width="100%">
                                 <tr>
                                     <td>Trans_ID</td>
                                     <td>Acc_No</td>
@@ -94,22 +81,8 @@
                                                     <td>{{trans_obj.Type}}</td>
                                                 </tr>
                                             {% endfor %}
-
                                         {% endif %}
-
-                                        
-
                                     {% endfor %}
-                                    <tr>
-                                        <td>
-                                            <p>which type you want to see?</p><br>
-                                        </td>
-                                        <td>
-                                            <button onclick="set_account_action('all')"> all </button> <br><br>
-                                            <button onclick="set_account_action('withdraw')"> Withdraw </button> <br><br>
-                                            <button onclick="set_account_action('deposit')"> Deposit </button> <br> <br>
-                                        </td>
-                                    </tr>
                                 {% else %}
                                     <tr> <td> New Customer. No accounts yet. </td></tr>
                                 {% endif %}
@@ -118,13 +91,13 @@
                     </td>
                 </tr>
             </table>
-        
         {% else %}
             <p>Welcome, new user. Please log in.</p>
         {% endif %}
         
         
         </form>
+    </div>
         <script>
         function set_account_action(account_action_val){
             hidden_field = document.getElementById("account_action");

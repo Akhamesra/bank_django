@@ -3,81 +3,71 @@
     {% load static %}
     
     {% block stylecontent %}
-        <style>
-            body {
-                background-color: aliceblue;
-            }
-            h2 {
-                font-family: 'Slabo 27px';
-                border-bottom: 1px solid black;
-                font-weight: 900;
-            }
-            #page_name {
-                font-size: 25;
-            }
-            
-            #details_box {
-                font-size: 23;
-                top: 50px;
-                left: 30px;
-            }
-            
-            #details_table {
-                font-size: 20;
-                position: relative;
-                align-items: center;
-            }
-            
-            #edit_details {
-                top: 10px;
-                left: 20px;
-            }
-            
-            #edit_button {
-                border: none;
-                color: black;
-                padding: 5px 7px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-                margin: 2px 1px;
-                cursor: pointer;
-            }
-        </style>
+    <style>
+        {% comment %} body {
+          background-color: aliceblue;
+        }
+        h2 {
+          font-family: "Slabo 27px";
+          border-bottom: 1px solid black;
+          font-weight: 900;
+        } {% endcomment %}
+        #page_name {
+          font-size: 25;
+        }
+    
+        #details_box {
+          font-size: 23;
+    
+        }
+    
+        #details_table {
+          font-size: 20;
+    
+          align-items: center;
+        }
+    
+        #edit_details {
+    
+        }
+        .form{
+            border-radius: 12px;
+            border: 2px solid #000;
+        }
+        {% comment %} #edit_button {
+          border: none;
+          color: black;
+          padding: 5px 7px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 14px;
+          margin: 2px 1px;
+          cursor: pointer;
+        } {% endcomment %}
+      </style>
     {%endblock%}
     
     {% block bodycontent %}
 
-        <table  width=70% height=60%>
-            <tr>
-                <td>
-                    <div id="page_name" style="float:left;">
-                        <font color="#3399ff">Deposit</font>
-                    </div>
-                </td>
-                
-                
-            </tr>
-            <tr>
-                <td></td>
-
+    <div class="container">
+        <h1 class="mb-5">Deposit</h1>
+        <div class="row">
+            <div class="col-12 col-md-6 my-auto">
+                <table class="">
+                <tr>
                 <td>
 
                     <div id="details_box">
-                        <form name="deposit_details" action="deposit" method="POST">
-                            <table id="details_table" cellpadding=5px;>
+                        <form name="deposit_details" action="deposit" method="POST" class="shadow form p-4">
+                            <table id="details_table" cellpadding="10px;">
                                 {% if accounts %}
                                {% csrf_token %}
                                 <tr>
-                                    <td>Amount to be deposited :</td>
-                                    <td><input type="number" min='0' name="amount" placeholder="Amount"></td>
+                                    <td>Amount to be deposited : <input type="number" min='0' name="amount" placeholder="Amount"></td>
                                 </tr>
                                 <tr>
-                                    <td> Deposit to account :</td>
-                                    {% comment %} <td><input type="text" name="acc_no" placeholder="Account number"></td> {% endcomment %}
-                                    <td>
-                                        <label for="acc_no">Choose an account:</label>
+                                    <td> Deposit to account :
                                         <select name="acc_no">
                                             <option value="none" selected disabled hidden>accounts</option>
                                             {% for account in accounts %}
@@ -87,9 +77,8 @@
                                     </td>
                                 </tr>
                                 <tr> 
-                                    <td></td>
                                     <!--<td><input type="button" value="Withdraw"></td>-->
-                                    <td><button>Deposit</button></td>
+                                    <td><button class="btn btn-outline-success">Deposit</button></td>
                                 </tr>
                                 {% else %}
                                     <tr> <td> New Customer. No accounts yet. </td></tr>
@@ -98,7 +87,7 @@
                                     <td><span>{{msg|safe}}</span></td>
                                 </tr>
                                 <tr>
-                                    <td> <small>By transferring money from your account, you agree to the <a href="{% url 'accounts:tnc' %}">Terms and Conditions</a> of amount transfer</small>. <br></td>
+                                    <td> <small>By transferring money from your account, you agree to the <a href="{% url 'accounts:tnc' %}">Terms and Conditions</a> of amount transfer</small>. <br>
                                 </tr>
                             </table>
                         </form>
@@ -106,6 +95,12 @@
                 </td>
             </tr>
         </table>
+    </div>
+    <div class="col-12 col-md-6">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<lottie-player src="https://assets1.lottiefiles.com/packages/lf20_8btahzqu.json"  background="transparent"  speed="1"  style="width: auto; height:auto;"  loop  autoplay></lottie-player>
+    </div>
+</div>
     {%endblock%}
 </body>
 

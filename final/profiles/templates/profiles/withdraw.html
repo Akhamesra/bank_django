@@ -1,36 +1,37 @@
 <body>
   {% extends 'base.html' %} {% load static %} {% block stylecontent %}
   <style>
-    body {
+    {% comment %} body {
       background-color: aliceblue;
     }
     h2 {
       font-family: "Slabo 27px";
       border-bottom: 1px solid black;
       font-weight: 900;
-    }
+    } {% endcomment %}
     #page_name {
       font-size: 25;
     }
 
     #details_box {
       font-size: 23;
-      top: 50px;
-      left: 30px;
+
     }
 
     #details_table {
       font-size: 20;
-      position: relative;
+
       align-items: center;
     }
 
     #edit_details {
-      top: 10px;
-      left: 20px;
-    }
 
-    #edit_button {
+    }
+    .form{
+        border-radius: 12px;
+        border: 2px solid #000;
+    }
+    {% comment %} #edit_button {
       border: none;
       color: black;
       padding: 5px 7px;
@@ -40,34 +41,29 @@
       font-size: 14px;
       margin: 2px 1px;
       cursor: pointer;
-    }
+    } {% endcomment %}
   </style>
 
   {%endblock%} {% block bodycontent %}
-  <table width="70%" height="60%">
+ <div class="container">
+    <h1 class="mb-5">Withdraw</h1>
+    <div class="row">
+        <div class="col-12 col-md-6">
+  <table class="my-5">
     <tr>
-      <td>
-        <div id="page_name" style="float: left">
-          <font color="#3399ff">Withdraw</font>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-
       <td>
         <div id="details_box">
-          <form name="withdraw_details" action="withdraw" method="POST">
-            <table id="details_table" cellpadding="5px;">
+          <form name="withdraw_details" action="withdraw" method="POST" class="shadow form p-4">
+            <table id="details_table" cellpadding="10px;">
               {% if accounts %} {% csrf_token %}
               <tr>
-                <td>Amount to be withdrawn :</td>
-                <td>
+                <td>Amount to be withdrawn :
+                
                   <input type="number" min='0' name="amount" placeholder="Amount" />
                 </td>
               </tr>
               <tr>
-                <td>Withdraw from account :</td>
+                <td>Withdraw from account :
                 {% comment %}
                 <td>
                   <input
@@ -77,8 +73,8 @@
                   />
                 </td>
                 {% endcomment %}
-                <td>
-                  <label for="acc_no">Choose an account:</label>
+                
+                  
                   <select name="acc_no">
                     <option value="none" selected disabled hidden>
                       accounts
@@ -91,9 +87,8 @@
               </tr>
 
               <tr>
-                <td></td>
                 <!--<td><input type="button" value="Withdraw"></td>-->
-                <td><button>Withdraw</button></td>
+                <td><button class="btn btn-outline-success">Withdraw</button></td>
               </tr>
               {% else %}
               <tr>
@@ -118,5 +113,12 @@
       </td>
     </tr>
   </table>
+</div>
+<div class="col-12 col-md-6">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+<lottie-player src="https://assets5.lottiefiles.com/packages/lf20_8ft4qjde.json"  background="transparent"  speed="1"  style="" class="img-fluid"  loop  autoplay></lottie-player>
+</div>
+</div>
+</div>
   {% endblock%}
 </body>
