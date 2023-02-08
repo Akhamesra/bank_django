@@ -75,7 +75,16 @@
                             </tr>
                             <tr>
                                 <td> Withdraw from account :</td>
-                                <td><input type="text" name="acc_no" placeholder="Account number"></td>
+                                {% comment %} <td><input type="text" name="acc_no" placeholder="Account number"></td> {% endcomment %}
+                                <td>
+                                    <label for="cars">Choose an account:</label>
+                                    <select name="acc_no">
+                                        <option value="none" selected disabled hidden>accounts</option>
+                                        {% for account in accounts %}
+                                            <option value="{{account}}">{{account}}</option>
+                                        {% endfor %}
+                                </select>
+                                </td>
                             </tr>
 
                             <tr>

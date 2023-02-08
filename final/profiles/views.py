@@ -17,10 +17,6 @@ def randomGen():
     # return a 6 digit random number
     return int(random.uniform(100000, 999999))
 
-def helper(var):
-    global extra 
-    extra= var
-
 def home(request):
     return render(request,'profiles/home.html')
     
@@ -29,26 +25,23 @@ def user_details(request):
         phoneno = request.POST.get('phoneno')
         email = request.POST.get('email')
         address = request.POST.get('address')
-        customer = Classes.New_Customer(extra, extra.username, phoneno,email,address)
+        Classes.New_Customer(request.user.username, phoneno,email,address)
         return redirect('profiles:dashboard')
     return render(request, 'profiles/user_details.html') 
 
 def display_menu(request):
     global cur_customer
-    user_log_in = Classes.Login_Details(request.user.username, request.user.password)
+    # user_log_in = Classes.Login_Details(request.user.username, request.user.password)
     #Check if customer is a new or existing customer
-    cust_details = Customer_Data.objects.filter(Name = user_log_in.username)
+    cust_details = Customer_Data.objects.filter(Name = request.user.username)
     print("cust_details", cust_details)
     if(cust_details):
        print("Existing Customer")
-       customer = Classes.Customer(user_log_in)
+       customer = Classes.Customer(request.user.username)
        print("customer obj", customer)
     else:
         print("Making New Customer")
-        helper(user_log_in)
         return redirect('profiles:user_details')
-        # customer = Classes.New_Customer(user_log_in, user_log_in.username, '9999999999', 'saa@gmail.com')
-    print("Customer name:", customer.customer_data.Name)
     cur_customer = customer
     return render(request, 'profiles/user_account.html', 
     {'customer':customer})
@@ -65,9 +58,9 @@ def account_management(request):
 
 def withdraw(request):
     accounts = cur_customer.accounts
-    msg="<br>Enter a valid account no. and also check for ur balance!</p><br>"
+    msg="<br>Enter a valid account no. and also check for your balance!</p><br>"
     if request.method == "POST":
-        acc_num=int(request.POST.get('acc_no'))
+        acc_num=int(request.POST.get('acc_no')) if request.POST.get('acc_no') is not None else 0
         amount=int(request.POST.get('amount'))
         print('requestPOST=',acc_num,type(acc_num))
         #print('account dict:',accounts.keys())
@@ -95,12 +88,10 @@ def withdraw(request):
 
 def deposit(request):
     accounts = cur_customer.accounts
-    msg="<br>Enter a valid account no. and also check for ur balance!</p><br>"
+    msg="<br>Enter a valid account no. and also check for your balance!</p><br>"
     if request.method == "POST":
-        acc_num=int(request.POST.get('acc_no'))
+        acc_num= int(request.POST.get('acc_no')) if request.POST.get('acc_no') is not None else 0
         amount=int(request.POST.get('amount'))
-        print('requestPOST=',acc_num,type(acc_num))
-        #print('account dict:',accounts.keys())
         if acc_num in accounts:
             #acc_obj= accounts[acc_num]
             acc_q=Account_Data.objects.get(Accno=acc_num)
@@ -117,6 +108,49 @@ def deposit(request):
         else:
             msg="<p>Invalid account number</p><br>"
     return render(request, 'profiles/deposit.html',{'customer':cur_customer, 'accounts':accounts,'msg':msg})
+
+def transfer(request):
+    accounts = cur_customer.accounts
+    msg=""
+    if request.method == 'POST':
+        # withdraw from
+        # deposit to
+        from_acc= int(request.POST.get('from_acc'))
+        to_acc= int(request.POST.get('to_acc'))
+        amount=int(request.POST.get('amount'))
+        if from_acc == to_acc:
+            msg="<p>from and to account number are same</p><br>"
+        if from_acc in accounts:
+            from_details = Account_Data.objects.get(Accno=from_acc)
+            from_bal = from_details.Balance
+            to_details = Account_Data.objects.get(Accno=to_acc)
+            to_bal = to_details.Balance
+            if(from_bal>=amount):
+
+            # set transaction
+                from_trans=Classes.Account(from_details)
+                from_trans.create_transaction(amount,"withdraw")
+                to_trans=Classes.Account(to_details)
+                to_trans.create_transaction(amount, "deposit")
+                from_bal-=amount
+                to_bal+=amount
+                from_details.Balance=from_bal
+                to_details.Balance=to_bal
+                from_details.save()
+                to_details.save()
+                # update db
+                from_obj = Account_Data.objects.get(Accno=from_acc)
+                curr_from = from_obj.Balance
+                curr_from += amount
+                Account_Data.objects.filter(Accno=from_acc).update(Balance=curr_from)
+                to_obj = Account_Data.objects.get(Accno=to_acc)
+                curr_to = to_obj.Balance
+                curr_to += amount
+                Account_Data.objects.filter(Accno=to_acc).update(Balance=curr_to)
+                msg="<td>Transaction Successful!</td><br>"
+            else:
+                msg="<td>Balance not enough to withdraw this amount</td><br>"
+    return render(request, 'profiles/transfer.html',{'accounts':accounts, 'msg':msg})
 
 def stat_gen(request):
     accounts = cur_customer.accounts
@@ -170,6 +204,8 @@ def get_function_chosen(request):
         return redirect('profiles:stat_gen') #name of view given in urls.py
     elif(menu_chosen=='show_details'):
         return redirect('profiles:show_details') #name of view given in urls.py
+    elif(menu_chosen=='transfer'):
+        return redirect('profiles:transfer') #name of view given in urls.py
 
     
 def get_account_action(request):

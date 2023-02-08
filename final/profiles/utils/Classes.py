@@ -50,18 +50,18 @@ class Login_Details:
         #Access DB and get customer whose credentials match
         customer_data = Customer_Data.objects.get(Name = self.username)
         #customer = Customer(
-        return customer #None returned if customer is new, not in DB yet
+        return customer_data #None returned if customer is new, not in DB yet
         #pass
         
   
 #For existing customer        
 class Customer:
-    def __init__(self, log_in_obj):
-        self.customer_data = Customer_Data.objects.get(Name = log_in_obj.username)
+    def __init__(self, username):
+        self.customer_data = Customer_Data.objects.get(Name = username)
         #get raises exception if no val found
         #if(not(self.customer_data)):
         #    raise CustomerDoesNotExist
-        self.login_credentials = log_in_obj
+        # self.login_credentials = log_in_obj
         #Take other details from DB
         self.accounts = {}
         account_data_list = Account_Data.objects.filter(Owner=self.customer_data)
@@ -83,7 +83,7 @@ class Customer:
             
         
 class New_Customer(Customer):
-    def __init__(self, log_in_obj, name, phone_no, email,address):
+    def __init__(self, name, phone_no, email,address):
         #Insert details to DB
         cust_user=Customer_Data()
         cust_user.Name = name
@@ -91,7 +91,7 @@ class New_Customer(Customer):
         cust_user.Email = email
         cust_user.Address = address
         cust_user.save()
-        super().__init__(log_in_obj)
+        super().__init__(name)
         #self.accounts = {}
     
         
@@ -110,21 +110,13 @@ class Transaction:
   
         
 class New_Transaction(Transaction):
-    def __init__(self, account_obj, date, time, amount, tran_type):  
+    def __init__(self, account_obj, date, time, amount, trans_type):  
         #trans_id will be got by auto-increment  
         trans_details=Transactions()
         trans_details.Amount=amount
-        trans_details.Type=tran_type
+        trans_details.Type=trans_type
         trans_details.Accno=account_obj.account_details
         trans_details.save()
         super().__init__(trans_details)
-        
 
-       
-        
-               
-                        
-        
-                
-        
-               
+

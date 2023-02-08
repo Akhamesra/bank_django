@@ -21,5 +21,6 @@ urlpatterns = [
     path(r"stat_gen", views.stat_gen, name='stat_gen'),
     path(r"get_stat_gen", views.get_transaction_action, name='get_transaction_action'),
     path(r'admin_view', views.admin_view, name="admin_view"),
+    path(r'transfer', views.transfer, name="transfer"),
 ]
 
