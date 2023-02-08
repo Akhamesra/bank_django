@@ -1,19 +1,23 @@
 # Create your views here.
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth import logout
 
 def register(request):
-    if request.method == "POST":
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("accounts:signin")
-    else:
-        form = UserCreationForm()
-    return render(request, "accounts/create_account.html", {"form": form})
+    try:
+        if request.method == "POST":
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("accounts:signin")
+        else:
+            form = UserCreationForm()
+    
+        return render(request, "accounts/create_account.html", {"form": form})
+    except Exception as e:
+        return render(request,'profiles/error.html',{'error':e})
 
 def sign_in(request):
     if request.method == "POST":

@@ -23,8 +23,8 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
                 {% if request.user.is_anonymous %}
                   <a class="nav-link" href="{% url 'accounts:signup' %}">Create new account <span class="sr-only">(current)</span></a>
                 </li>
