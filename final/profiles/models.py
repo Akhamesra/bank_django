@@ -19,7 +19,8 @@ class Account_Data(models.Model):
     class Meta:
         db_table = 'account'
     def __str__(self):
-        return self.Balance
+        return str(self.Accno)
+    
 
 class Transactions(models.Model): 
     Trans_ID = models.AutoField(primary_key=True)
@@ -30,7 +31,7 @@ class Transactions(models.Model):
     class Meta:
         db_table = 'transactions'
     def __str__(self):
-        return self.Amount
+        return str(self.Amount)
     
        
     
