@@ -10,7 +10,7 @@ class Customer_Data(models.Model):
     class Meta:
         db_table = 'customer'
     def __str__(self):
-        return f"{self.Name}"
+        return self.Name
    
 class Account_Data(models.Model):
     Accno = models.IntegerField(primary_key=True)
@@ -18,6 +18,9 @@ class Account_Data(models.Model):
     Balance = models.FloatField(validators=[MinValueValidator(0)])
     class Meta:
         db_table = 'account'
+    def __str__(self):
+        return str(self.Accno)
+    
 
 class Transactions(models.Model): 
     Trans_ID = models.AutoField(primary_key=True)
@@ -27,6 +30,8 @@ class Transactions(models.Model):
     #Type can be "withdraw" or "deposit"
     class Meta:
         db_table = 'transactions'
+    def __str__(self):
+        return str(self.Amount)
     
        
     
