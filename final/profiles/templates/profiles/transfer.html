@@ -75,7 +75,16 @@
 
                             <tr>
                                 <td> From account :</td>
-                                <td><input type="text" name="from_acc" placeholder="Account number"></td>
+                                {% comment %} <td><input type="text" name="from_acc" placeholder="Account number"></td> {% endcomment %}
+                                <td>
+                                    <label for="from_ac">Choose an account:</label>
+                                    <select name="from_acc">
+                                        <option value="none" selected disabled hidden>accounts</option>
+                                        {% for account in accounts %}
+                                            <option value="{{account}}">{{account}}</option>
+                                        {% endfor %}
+                                </select>
+                                </td>
                             </tr>
 
                             <tr>
@@ -92,7 +101,7 @@
                                 <td><span>{{msg|safe}}</span></td>
                             </tr>
                             <tr>
-                                <td> <small>By transferring money from your account, you agree to the <a href="#">Terms and Conditions</a> of amount transfer</small>. <br></td>
+                                <td> <small>By transferring money from your account, you agree to the <a href="{% url 'accounts:tnc' %}">Terms and Conditions</a> of amount transfer</small>. <br></td>
                             </tr>
                         </table>
                     </form>

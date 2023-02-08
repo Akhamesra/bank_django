@@ -35,3 +35,6 @@ def logout_view(request):
     logout(request)
     return redirect("accounts:signin")
     # return render("test.html", context)
+
+def tnc(request):
+    return render(request, "accounts/tnc.html")

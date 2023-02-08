@@ -126,7 +126,6 @@ def transfer(request):
             to_details = Account_Data.objects.get(Accno=to_acc)
             to_bal = to_details.Balance
             if(from_bal>=amount):
-
             # set transaction
                 from_trans=Classes.Account(from_details)
                 from_trans.create_transaction(amount,"withdraw")
@@ -166,7 +165,6 @@ def stat_gen(request):
         transaction=trans.get_transaction_log()
         trans_objs_list = list(transaction.values())
         all_transactions[acc] = all_transactions.get(acc, [])+trans_objs_list
-        print("trans:",transaction)
     return render(request, 'profiles/stat_gen.html',{'customer':cur_customer, 'accounts':accounts, 'transaction':all_transactions,'msg':msg})
 
 def get_transaction_action(request):

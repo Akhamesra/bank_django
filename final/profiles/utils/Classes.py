@@ -38,20 +38,20 @@ class New_Account(Account):
         super().__init__(new_acc)  #Call to base class constrcutor  
                 
         
-class Login_Details:
-    def __init__(self, user, passwd):
-        self.username = user
-        self.password = passwd  
+# class Login_Details:
+#     def __init__(self, user, passwd):
+#         self.username = user
+#         self.password = passwd  
         
-    #def login(self): 
-    #Could have a login function which checks if user exists in DB - not sure if its apt 
-    #Yet to link log in details with customer
-    def get_customer(self):
-        #Access DB and get customer whose credentials match
-        customer_data = Customer_Data.objects.get(Name = self.username)
-        #customer = Customer(
-        return customer_data #None returned if customer is new, not in DB yet
-        #pass
+#     #def login(self): 
+#     #Could have a login function which checks if user exists in DB - not sure if its apt 
+#     #Yet to link log in details with customer
+#     def get_customer(self):
+#         #Access DB and get customer whose credentials match
+#         customer_data = Customer_Data.objects.get(Name = self.username)
+#         #customer = Customer(
+#         return customer_data #None returned if customer is new, not in DB yet
+#         #pass
         
   
 #For existing customer        

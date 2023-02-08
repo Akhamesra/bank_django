@@ -77,7 +77,7 @@
                                 <td> Withdraw from account :</td>
                                 {% comment %} <td><input type="text" name="acc_no" placeholder="Account number"></td> {% endcomment %}
                                 <td>
-                                    <label for="cars">Choose an account:</label>
+                                    <label for="acc_no">Choose an account:</label>
                                     <select name="acc_no">
                                         <option value="none" selected disabled hidden>accounts</option>
                                         {% for account in accounts %}
@@ -99,7 +99,7 @@
                                 <td><span>{{msg|safe}}</span></td>
                             </tr>
                             <tr>
-                                <td> <small>By transferring money from your account, you agree to the <a href="#">Terms and Conditions</a> of amount transfer</small>. <br></td>
+                                <td> <small>By transferring money from your account, you agree to the <a href="{% url 'accounts:tnc' %}">Terms and Conditions</a> of amount transfer</small>. <br></td>
                             </tr>
                         </table>
                     </form>
