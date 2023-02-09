@@ -4,6 +4,10 @@ import random
 from django.http import HttpResponse
 from .utils import Classes
 from django.contrib.auth.decorators import login_required
+# import the logging library
+import logging
+# Get an instance of a logger
+logger = logging.getLogger(__name__)
 cur_customer = None #Stores customer obj
 
 # Create your views here.
