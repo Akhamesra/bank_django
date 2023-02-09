@@ -1,14 +1,6 @@
 <body>
   {% extends 'base.html' %} {% load static %} {% block stylecontent %}
   <style>
-    {% comment %} body {
-      background-color: aliceblue;
-    }
-    h2 {
-      font-family: "Slabo 27px";
-      border-bottom: 1px solid black;
-      font-weight: 900;
-    } {% endcomment %}
     #page_name {
       font-size: 25;
     }
@@ -64,15 +56,6 @@
               </tr>
               <tr>
                 <td>Withdraw from account :
-                {% comment %}
-                <td>
-                  <input
-                    type="text"
-                    name="acc_no"
-                    placeholder="Account number"
-                  />
-                </td>
-                {% endcomment %}
                 
                   
                   <select name="acc_no">
