@@ -20,17 +20,15 @@ def user_details(request):
     '''
     Ask for additional details if user is new.
     '''
-    if request.method == 'POST':
-        try:
-            phoneno = request.POST.get('phoneno')
-            email = request.POST.get('email')
-            address = request.POST.get('address')
-            Classes.New_Customer(request.user.username, phoneno,email,address)
-            return redirect('profiles:dashboard')
-        except Exception as e:
-            return render(request,'profiles/error.html',{'error':e})
 
+    if request.method == 'POST':
+        phoneno = request.POST.get('phoneno')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        Classes.New_Customer(request.user.username, phoneno,email,address)
+        return redirect('profiles:dashboard')
     return render(request, 'profiles/user_details.html') 
+
 
 def display_menu(request):
     '''

@@ -1,7 +1,9 @@
 {% extends 'base.html'%}
 
 {%block bodycontent%}
-    <form method="POST">
+<div class="container">
+    <h1 class="mb-5">Enter your details</h1>
+    <form method="POST" class="shadow w-50 border p-5">
         {% csrf_token %}
         <label>Enter a phone number</label>
         <input type = 'tel' name ='phoneno' pattern="[0-9]{10}" required><br>
@@ -9,6 +11,7 @@
         <input type = 'email' name="email"><br>
         <label>Address</label>
         <input type= 'text' name = 'address'><br>
-        <input type = 'submit' placeholder="submit">
+        <input type = 'submit' placeholder="submit" class="btn btn-outline-success">
     </form>
+</div>
 {% endblock%}

@@ -37,7 +37,7 @@ def sign_in(request):
 def logout_view(request):
     # Logout the user if he hits the logout submit button
     logout(request)
-    return redirect("accounts:signin")
+    return redirect("profiles:home")
     # return render("test.html", context)
 
 def tnc(request):
