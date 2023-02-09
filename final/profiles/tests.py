@@ -57,7 +57,6 @@ class TestViews(TestCase):
     def test_project_account_managment_GET(self):
         response=self.client.get(self.account_management)
         self.assertEquals(response.status_code,200)
-        #self.assertTemplateUsed(response,'profiles/account_details.html')
 
 
 class TestCustomerModel(TestCase):
@@ -69,7 +68,7 @@ class TestAccountModel(TestCase):
     def test_model_str(self):
         user1 = Customer_Data.objects.create(Name='test1')
         accno = Account_Data.objects.create(Accno='567890',Balance='10',Owner=user1)
-        self.assertEqual(str(accno),'10')
+        self.assertEqual(str(accno),'567890')
 
 
 

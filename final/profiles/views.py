@@ -3,7 +3,7 @@ from profiles.models import Customer_Data, Account_Data,Transactions
 import random
 from django.http import HttpResponse
 from .utils import Classes
-
+from django.contrib.auth.decorators import login_required
 cur_customer = None #Stores customer obj
 
 # Create your views here.
@@ -15,7 +15,7 @@ def home(request):
     Load Landing page.
     '''
     return render(request,'profiles/home.html')
-    
+@login_required(login_url="accounts:signin") 
 def user_details(request):
     '''
     Ask for additional details if user is new.
@@ -29,7 +29,7 @@ def user_details(request):
         return redirect('profiles:dashboard')
     return render(request, 'profiles/user_details.html') 
 
-
+@login_required(login_url="accounts:signin")
 def display_menu(request):
     '''
     Show the dashboard
@@ -51,7 +51,7 @@ def display_menu(request):
         return render(request,'profiles/error.html',{'error':e})
 
      
-
+@login_required(login_url="accounts:signin")
 def account_management(request):
     '''
     Show account details
@@ -67,7 +67,7 @@ def account_management(request):
     except Exception as e:
         return render(request,'profiles/error.html',{'error':e})
 
-
+@login_required(login_url="accounts:signin")
 def withdraw(request):
     '''
     Withdraw money from your bank account
@@ -102,7 +102,7 @@ def withdraw(request):
         return render(request, 'profiles/withdraw.html',{'customer':cur_customer, 'accounts':accounts,'msg':msg})
     except Exception as e:
         return render(request,'profiles/error.html',{'error':e})
-
+@login_required(login_url="accounts:signin")
 def deposit(request):
     '''
     Deposite money to your bank account
@@ -131,7 +131,7 @@ def deposit(request):
         return render(request, 'profiles/deposit.html',{'customer':cur_customer, 'accounts':accounts,'msg':msg})
     except Exception as e:
         return render(request,'profiles/error.html',{'error':e})
-
+@login_required(login_url="accounts:signin")
 def transfer(request):
     '''
     Transfer money from your account to someone else account
@@ -167,11 +167,11 @@ def transfer(request):
                     # update db
                     from_obj = Account_Data.objects.get(Accno=from_acc)
                     curr_from = from_obj.Balance
-                    curr_from += amount
+                    curr_from = from_bal
                     Account_Data.objects.filter(Accno=from_acc).update(Balance=curr_from)
                     to_obj = Account_Data.objects.get(Accno=to_acc)
                     curr_to = to_obj.Balance
-                    curr_to += amount
+                    curr_to = to_bal
                     Account_Data.objects.filter(Accno=to_acc).update(Balance=curr_to)
                     msg="<td>Transaction Successful!</td><br>"
                 else:
@@ -179,7 +179,7 @@ def transfer(request):
         return render(request, 'profiles/transfer.html',{'accounts':accounts, 'msg':msg})
     except Exception as e:
         return render(request,'profiles/error.html',{'error':e})
-
+@login_required(login_url="accounts:signin")
 def stat_gen(request):
     '''
     Show transaction history
@@ -271,14 +271,16 @@ def admin_view(request):
     Admin view
     Show all users detail
     '''
-    try:
-        data = Account_Data.objects.all()
-        context ={
-            'data' : data,
-        }
-        return render(request, "profiles/admin.html", context)
-    except Exception as e:
-        return render(request,'profiles/error.html',{'error':e})
+    if request.user.is_superuser:
+        try:
+            data = Account_Data.objects.all()
+            context ={
+                'data' : data,
+            }
+            return render(request, "profiles/admin.html", context)
+        except Exception as e:
+            return render(request,'profiles/error.html',{'error':e})
+    
 
 
 def show_details(request):

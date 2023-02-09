@@ -22,7 +22,7 @@ class Account:
             self.transac[tr].display()
         return self.transac
                    
-                
+
         
 class New_Account(Account):
     def __init__(self, customer_obj):
