@@ -1,7 +1,6 @@
 <body>
     {% extends 'base.html' %}
     {% load static %}
-    
     {% block stylecontent %}
     <style>
         #page_name {
@@ -45,7 +44,7 @@
                                 {% if accounts %}
                                {% csrf_token %}
                                 <tr>
-                                    <td>Amount to be deposited : <input type="number" min='0' name="amount" placeholder="Amount"></td>
+                                    <td>Amount to be deposited : <input type="number" min='0' max='1000000' name="amount" placeholder="Amount"></td>
                                 </tr>
                                 <tr>
                                     <td> Deposit to account :

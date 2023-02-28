@@ -20,6 +20,7 @@ def register(request):
         return render(request,'profiles/error.html',{'error':e})
 
 def sign_in(request):
+    msg=""
     if request.method == "POST":
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -28,10 +29,12 @@ def sign_in(request):
             if user.is_superuser:
                 return redirect("profiles:admin_view")
             return redirect("profiles:dashboard")
+        else:
+            msg="invalid credentials "
     else:
         form = AuthenticationForm()
         #print('invalid')
-    return render(request, "accounts/sign_in.html",{"form": form})
+    return render(request, "accounts/sign_in.html",{"form": form, 'msg': msg})
         #return redirect("accounts:signin")
 
 def logout_view(request):

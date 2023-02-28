@@ -57,11 +57,13 @@
                             <table class="table table-striped shadow" id="trans_details_table" cellpadding=5px; width="100%">
                                 <tr>
                                     <td>Trans_ID</td>
-                                    <td>Acc_No</td>
+                                    <td>From_Acc</td>
+                                    <td>To_Acc</td>
                                     <td>Amount</td>
                                     <td>Type</td>
+                                    <td>By</td>
                                 </tr>
-                                {% if accounts %}
+                                {% comment %} {% if accounts %}
                                     {% for accno, trans_obj_list in transaction.items %}
                                         {% if transaction and msg != 'filter'%}
                                             {% for trans_obj in trans_obj_list %}
@@ -79,6 +81,65 @@
                                                     <td>{{ accno }}</td>
                                                     <td>{{trans_obj.Amount}}</td>
                                                     <td>{{trans_obj.Type}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <tr> <td> New Customer. No accounts yet. </td></tr>
+                                {% endif %} {% endcomment %}
+                                {% if accounts %}
+                                    {% for accno, trans_obj_list in transaction.items %}
+                                        {% if transaction and msg != 'filter'%}
+                                            {% for trans_obj in trans_obj_list %}
+                                                <tr>
+                                                    <td>{{trans_obj.trans_id}}</td>
+                                                    {% if trans_obj.trans_details.same  %}
+                                                        {% if trans_obj.trans_details.Type == 'withdraw' %}
+                                                            <td>{{ accno }}</td>
+                                                            <td> -- </td>
+                                                        {% else %}
+                                                            <td> -- </td>
+                                                            <td>{{accno}}</td>
+                                                        {% endif %}
+                                                    {% else %}
+                                                            <td>{{accno}}</td>
+                                                            <td>{{trans_obj.trans_details.To_Acc}}</td>
+                                                    {% endif %}
+                                                    {% comment %} <td>{{accno}}</td>
+                                                    <td>{{trans_obj.trans_details.To_Acc}}</td> {% endcomment %}
+                                                    <td>{{trans_obj.trans_details.Amount}}</td>
+                                                    <td>{{trans_obj.trans_details.Type}}</td>
+                                                    {% if trans_obj.trans_details.same %}
+                                                        <td>Cash</td>
+                                                    {% else %}
+                                                        <td>Transfer</td>
+                                                    {% endif %}
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for trans_obj in trans_obj_list %}
+                                                <tr>
+                                                    <td>{{trans_obj.Trans_ID}}</td>
+                                                    {% if trans_obj.same  %}
+                                                        {% if trans_obj.Type == 'withdraw' %}
+                                                            <td>{{ accno }}</td>
+                                                            <td> -- </td>
+                                                        {% else %}
+                                                            <td> -- </td>
+                                                            <td>{{accno}}</td>
+                                                        {% endif %}
+                                                    {% else %}
+                                                            <td>{{accno}}</td>
+                                                            <td>{{trans_obj.To_Acc}}</td>
+                                                    {% endif %}
+                                                    <td>{{trans_obj.Amount}}</td>
+                                                    <td>{{trans_obj.Type}}</td>
+                                                    {% if trans_obj.same %}
+                                                        <td>Cash</td>
+                                                    {% else %}
+                                                        <td>Transfer</td>
+                                                    {% endif %}
                                                 </tr>
                                             {% endfor %}
                                         {% endif %}

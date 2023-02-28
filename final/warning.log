@@ -1,2 +1,13 @@
-Not Found: /admin_view
-Not Found: /admin_view
+/Users/akshitkhamesra/Desktop/Project_transfer/bank_django/final/bank/settings.py changed, reloading.
+Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "/Users/akshitkhamesra/Library/Python/3.11/lib/python/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/akshitkhamesra/Library/Python/3.11/lib/python/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/akshitkhamesra/Desktop/Project_transfer/bank_django/final/accounts/views.py", line 36, in sign_in
+    return render(request, "accounts/sign_in.html",{"form": form, 'msg': msg})
+                                                                         ^^^
+UnboundLocalError: cannot access local variable 'msg' where it is not associated with a value

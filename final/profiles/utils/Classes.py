@@ -10,12 +10,12 @@ class Account:
         self.account_no = account_details.Accno
         self.account_details = account_details
         self.transac = {}
-        transaction_list = Transactions.objects.filter(Accno = account_details)
+        transaction_list = Transactions.objects.filter(From_Acc = account_details)
         for trans in transaction_list:
             self.transac[trans.Trans_ID] = Transaction(trans)
 
-    def create_transaction(self,amt,type):
-        new_trans = New_Transaction(self,date.today(),datetime.now(),amt,type)
+    def create_transaction(self,to_acc, amt,type, chk):
+        new_trans = New_Transaction(self,to_acc,amt,type, chk)
         
     def get_transaction_log(self):
         for tr in self.transac:
@@ -82,12 +82,14 @@ class Transaction:
   
         
 class New_Transaction(Transaction):
-    def __init__(self, account_obj, date, time, amount, trans_type):  
+    def __init__(self, account_obj,to_acc, amount, trans_type,chk):  
 
         trans_details=Transactions()
         trans_details.Amount=amount
         trans_details.Type=trans_type
-        trans_details.Accno=account_obj.account_details
+        trans_details.From_Acc=account_obj.account_details
+        trans_details.To_Acc = to_acc
+        trans_details.same = chk
         trans_details.save()
         super().__init__(trans_details)
 

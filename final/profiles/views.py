@@ -19,6 +19,7 @@ def home(request):
     Load Landing page.
     '''
     return render(request,'profiles/home.html')
+
 @login_required(login_url="accounts:signin") 
 def user_details(request):
     '''
@@ -91,7 +92,7 @@ def withdraw(request):
                 print("balance:",balance)
                 if(balance>=amount):
                     trans=Classes.Account(acc_q)
-                    trans.create_transaction(amount,"withdraw")
+                    trans.create_transaction(acc_num,amount,"withdraw",1)
                     balance-=amount
                     acc_q.Balance=balance
                     print("balance:",acc_q.Balance)
@@ -106,6 +107,7 @@ def withdraw(request):
         return render(request, 'profiles/withdraw.html',{'customer':cur_customer, 'accounts':accounts,'msg':msg})
     except Exception as e:
         return render(request,'profiles/error.html',{'error':e})
+
 @login_required(login_url="accounts:signin")
 def deposit(request):
     '''
@@ -123,7 +125,7 @@ def deposit(request):
                 balance=acc_q.Balance
                 print("balance:",balance)
                 trans=Classes.Account(acc_q)
-                trans.create_transaction(amount,"deposit")
+                trans.create_transaction(acc_num,amount,"deposit",1)
                 balance+=abs(amount)
                 acc_q.Balance=balance
                 print("balance:",acc_q.Balance)
@@ -159,9 +161,9 @@ def transfer(request):
                 if(from_bal>=amount):
                 # set transaction
                     from_trans=Classes.Account(from_details)
-                    from_trans.create_transaction(amount,"withdraw")
+                    from_trans.create_transaction(to_acc,amount,"withdraw",0)
                     to_trans=Classes.Account(to_details)
-                    to_trans.create_transaction(amount, "deposit")
+                    to_trans.create_transaction(from_acc,amount, "deposit",0)
                     from_bal-=amount
                     to_bal+=amount
                     from_details.Balance=from_bal
@@ -183,6 +185,7 @@ def transfer(request):
         return render(request, 'profiles/transfer.html',{'accounts':accounts, 'msg':msg})
     except Exception as e:
         return render(request,'profiles/error.html',{'error':e})
+
 @login_required(login_url="accounts:signin")
 def stat_gen(request):
     '''
@@ -198,8 +201,11 @@ def stat_gen(request):
             acc_q=Account_Data.objects.get(Accno=int(acc))
             trans=Classes.Account(acc_q)
             transaction=trans.get_transaction_log()
+            print(transaction)
             trans_objs_list = list(transaction.values())
+            print(trans_objs_list)
             all_transactions[acc] = all_transactions.get(acc, [])+trans_objs_list
+            print(all_transactions)
         return render(request, 'profiles/stat_gen.html',{'customer':cur_customer, 'accounts':accounts, 'transaction':all_transactions,'msg':msg})
     except Exception as e:
         return render(request,'profiles/error.html',{'error':e})
@@ -215,11 +221,11 @@ def get_transaction_action(request):
         all_transactions = {}
         if(button_action == 'withdraw'):
             for acc in accounts:
-                transaction=Transactions.objects.filter(Accno_id=int(acc),Type="withdraw")
+                transaction=Transactions.objects.filter(From_Acc_id=int(acc),Type="withdraw")
                 all_transactions[acc] = list(transaction)
         elif(button_action == 'deposit'):
             for acc in accounts:
-                transaction=Transactions.objects.filter(Accno_id=int(acc),Type="deposit")
+                transaction=Transactions.objects.filter(From_Acc_id=int(acc),Type="deposit")
                 all_transactions[acc] = list(transaction)
         elif(button_action == 'all'):
             return redirect('profiles:stat_gen')
@@ -277,7 +283,7 @@ def admin_view(request):
     '''
     if request.user.is_superuser:
         try:
-            data = Account_Data.objects.all()
+            data = Account_Data.objects.all().order_by('Owner')
             context ={
                 'data' : data,
             }

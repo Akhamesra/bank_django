@@ -24,8 +24,11 @@ class Account_Data(models.Model):
 
 class Transactions(models.Model): 
     Trans_ID = models.AutoField(primary_key=True)
-    Accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE)
+    # Accno = models.ForeignKey(Account_Data, on_delete=models.CASCADE)
     Amount = models.FloatField(validators=[MinValueValidator(0)])
+    From_Acc = models.ForeignKey(Account_Data, on_delete=models.CASCADE)
+    To_Acc = models.CharField(max_length=6)
+    same = models.BooleanField()
     Type = models.CharField(max_length=30)
     #Type can be "withdraw" or "deposit"
     class Meta:
